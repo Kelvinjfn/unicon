@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conecta Uni — Universidade Conectada</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="main-header">
+    <a class="brand" href="#" onclick="navigate('home')">
+      <div class="logo">UNICON</div>
+      <div>
+        <div class="title">Conecta Uni</div>
+        <div class="subtitle">Emprego, pesquisa e mentoria</div>
+      </div>
+    </a>
+  <button id="menu-toggle" class="hamburger">☰</button>
+  <nav id="menu">
+  <button class="ghost" id="nav-home" onclick="navigate('home')">Início</button>
+  <button class="ghost" id="nav-vacancies" onclick="navigate('vacancies')">Vagas</button>
+  <button class="ghost" id="nav-mentors" onclick="navigate('mentors')">Mentoria</button>
+  <button class="ghost" id="nav-resume" onclick="navigate('resume')">Currículo</button>
+  <button class="ghost" id="nav-simulator" onclick="navigate('simulator')">Simulador</button>
+  <button class="ghost" id="nav-assistant" onclick="navigate('assistant')">Assistente IA 🤖</button>
+  <button class="primary" id="login-btn" onclick="navigate('login')">Entrar / Cadastrar</button>
+  <span id="user-info" class="hidden"></span>
+  <button class="ghost hidden" id="logout-btn" onclick="logout()">Sair</button>
+ </nav>
+  </header>
+
+  <main id="app"></main>
+
+  <footer>
+    Projeto Conecta Uni — Protótipo acadêmico • Alinhado ao ODS 8
+  </footer>
+
+  <div id="chat-bubble" onclick="toggleAssistant()">
+    🤖
+  </div>
+
+  <audio id="ping-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5fef2eac61.mp3"></audio>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
