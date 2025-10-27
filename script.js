@@ -1,9 +1,8 @@
 const app = document.getElementById("app");
-
 const loginBtn = document.getElementById("login-btn");
 const logoutBtn = document.getElementById("logout-btn");
 const userInfo = document.getElementById("user-info");
-const menuToggle = document.getElementById("menu-toggle"); 
+const menuToggle = document.getElementById("menu-toggle");
 const menu = document.getElementById("menu");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,12 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const user = JSON.parse(localStorage.getItem("uniconUser"));
     if (user) showUser(user);
   } catch (e) {
-    console.warn("Erro localStorage:", e);
+    console.warn("Erro ao acessar localStorage:", e);
   }
 
   navigate("home");
 });
-
 
 function navigate(view) {
   setActive(view);
@@ -36,6 +34,7 @@ function navigate(view) {
     case "simulator": renderSimulator(); break;
     case "login": renderLoginPage(); break;
     case "register": renderRegisterPage(); break;
+    case "company": renderCompanyDashboard(); break;
     default: renderHome();
   }
 }
@@ -51,29 +50,30 @@ function renderHome() {
     <section class="card center">
       <h1>Bem-vindo ao Conecta Uni</h1>
       <p class="small">A plataforma que conecta estudantes, professores, universidades e empresas.</p>
-      <div style="margin-top:14px">
+
+      <div class="home-buttons">
         <button class="primary" onclick="navigate('vacancies')">Explorar Vagas</button>
-        <button class="ghost" onclick="navigate('mentors')">Mentoria</button>
+        <button class="secondary" onclick="navigate('mentors')">Mentoria</button>
       </div>
     </section>
 
     <section class="features" style="margin-top:30px;">
-      <div class="feature" style="border-radius:18px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/2983/2983788.png" alt="Oportunidades" style="border:none;border-radius:0;width:70px;height:70px;" />
-        <h3 style="color:var(--blue);margin-top:10px;">Oportunidades</h3>
-        <p style="color:#333;font-size:14px;">Conecte-se com empresas e programas de estágio alinhados ao seu curso.</p>
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/2983/2983788.png" alt="Oportunidades" />
+        <h3>Oportunidades</h3>
+        <p>Conecte-se com empresas e programas de estágio alinhados ao seu curso.</p>
       </div>
 
-      <div class="feature" style="border-radius:18px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140047.png" alt="Mentoria Acadêmica" style="border:none;border-radius:0;width:70px;height:70px;" />
-        <h3 style="color:var(--blue);margin-top:10px;">Mentoria Acadêmica</h3>
-        <p style="color:#333;font-size:14px;">Aprenda com professores e pesquisadores de diversas áreas.</p>
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140047.png" alt="Mentoria Acadêmica" />
+        <h3>Mentoria Acadêmica</h3>
+        <p>Aprenda com professores e pesquisadores de diversas áreas.</p>
       </div>
 
-      <div class="feature" style="border-radius:18px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Projetos e Pesquisas" style="border:none;border-radius:0;width:70px;height:70px;" />
-        <h3 style="color:var(--blue);margin-top:10px;">Projetos e Pesquisas</h3>
-        <p style="color:#333;font-size:14px;">Participe de projetos interdisciplinares e publique seus resultados.</p>
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Projetos e Pesquisas" />
+        <h3>Projetos e Pesquisas</h3>
+        <p>Participe de projetos interdisciplinares e publique seus resultados.</p>
       </div>
     </section>
 
@@ -88,6 +88,7 @@ function renderVacancies() {
   ];
   app.innerHTML = `<section class="card"><h1>Vagas Disponíveis</h1></section>`;
   const container = document.createElement("div");
+
   vacancies.forEach(v => {
     const div = document.createElement("div");
     div.className = "card";
@@ -110,29 +111,15 @@ function applyVacancy(title, company) {
 
 function renderMentors() {
   const mentors = [
-    { 
-      name: "Prof. Ana Letícia", 
-      area: "Inteligência Artificial (IA)", 
-      avatar: "https://cdn-icons-png.flaticon.com/512/4140/4140047.png" // mulher professora
-    },
-    { 
-      name: "Dr. Erik Jhones", 
-      area: "Python e Ciência de Dados", 
-      avatar: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" // homem pesquisador
-    },
-    { 
-      name: "Prof. Gabriela Torres", 
-      area: "Desenvolvimento Web (Front-end e Back-end)", 
-      avatar: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" // homem desenvolvedor
-    }
+    { name: "Prof. Ana Letícia", area: "Inteligência Artificial (IA)", avatar: "https://cdn-icons-png.flaticon.com/512/4140/4140047.png" },
+    { name: "Dr. Erik Jhones", area: "Python e Ciência de Dados", avatar: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
+    { name: "Prof. Gabriela Torres", area: "Desenvolvimento Web (Front-end e Back-end)", avatar: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" }
   ];
 
   app.innerHTML = `
     <section class="card">
       <h1>Mentoria Acadêmica</h1>
-      <p class="small">
-        Conecte-se com professores e especialistas em tecnologia, ciência e inovação.
-      </p>
+      <p class="small">Conecte-se com professores e especialistas em tecnologia, ciência e inovação.</p>
     </section>
   `;
 
@@ -146,7 +133,7 @@ function renderMentors() {
       <img src="${m.avatar}" alt="${m.name}" />
       <h3>${m.name}</h3>
       <p>${m.area}</p>
-      <button class="primary" onclick="alert('Você demonstrou interesse em mentoria com ${m.name}. Em breve entraremos em contato!')">
+      <button class="primary" onclick="alert('Solicitação de mentoria enviada para ${m.name}.')">
         Solicitar Mentoria
       </button>
     `;
@@ -156,10 +143,6 @@ function renderMentors() {
   app.appendChild(container);
 }
 
-
-function requestMentoria(name) {
-  alert(`Solicitação de mentoria enviada para ${name}.`);
-}
 
 function renderResume() {
   app.innerHTML = `
@@ -208,7 +191,7 @@ function renderResume() {
 function generateResumePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: "pt", format: "a4" });
-  const field = id => (document.getElementById(id) && document.getElementById(id).value.trim()) ? document.getElementById(id).value : "-";
+  const field = id => (document.getElementById(id)?.value.trim() || "-");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
@@ -224,13 +207,11 @@ function generateResumePDF() {
     y += 16;
     doc.setFont("helvetica", "normal");
     doc.setTextColor(0,0,0);
-    doc.setFontSize(11);
     const split = doc.splitTextToSize(text, doc.internal.pageSize.getWidth() - 80);
     doc.text(split, 40, y);
     y += split.length * 14 + 10;
     if (y > doc.internal.pageSize.getHeight() - 80) {
-      doc.addPage();
-      y = 40;
+      doc.addPage(); y = 40;
     }
   };
 
@@ -307,7 +288,8 @@ function evaluateInterview() {
     }
   }
   const normalized = Math.min(100, Math.round((score / (total * 1.3)) * 100));
-  alert(`Avaliação rápida: ${normalized}%\nDica: use exemplos concretos, números e resultados sempre que possível.`);
+  const feedback = normalized > 80 ? "Excelente desempenho!" : normalized > 60 ? "Bom, mas pode melhorar!" : "Continue praticando!";
+  alert(`Avaliação rápida: ${normalized}%\n${feedback}\nDica: use exemplos concretos, números e resultados.`);
 }
 
 function renderLoginPage() {
@@ -387,41 +369,29 @@ function logout() {
   navigate("home");
 }
 
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"'`=\/]/g, s => {
-    return {
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;'
-    }[s];
-  });
-}
-
 function renderAssistant() {
   app.innerHTML = `
     <section class="card">
       <h1>Assistente Conecta Uni 🤖</h1>
       <p class="small">Converse comigo! Posso te ajudar a entender as funções da plataforma.</p>
-
       <div id="chat-box" class="chat-box"></div>
-
       <div class="chat-input">
         <input id="chat-input" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')sendMessage()" />
         <button class="primary" onclick="sendMessage()">Enviar</button>
       </div>
     </section>
   `;
-
-  const box = document.getElementById("chat-box");
-  box.innerHTML += `<div class="bot-msg">Olá 👋 Sou o assistente da Conecta Uni. Posso te ajudar com informações sobre vagas, currículo, mentoria ou simulador. O que você gostaria de saber?</div>`;
+  document.getElementById("chat-box").innerHTML += `<div class="bot-msg">Olá 👋 Sou o assistente da Conecta Uni. Posso te ajudar com informações sobre vagas, currículo, mentoria ou simulador.</div>`;
 }
 
 const respostasIA = {
-  vagas: "A seção 'Vagas' conecta você a oportunidades de estágio e emprego em diversas áreas. Lá, você pode se candidatar diretamente às empresas parceiras.",
-  currículo: "Na aba 'Currículo', você pode preencher suas informações e gerar automaticamente um PDF pronto para enviar às empresas.",
-  mentoria: "A 'Mentoria' conecta estudantes a professores e especialistas. Basta escolher um mentor e solicitar acompanhamento.",
-  simulador: "O 'Simulador de Entrevistas' ajuda você a se preparar para processos seletivos com perguntas reais de entrevistas.",
-  conta: "Você pode criar uma conta gratuita clicando em 'Entrar / Cadastrar' no menu superior.",
-  unicon: "A UNICON é a identidade visual do projeto Conecta Uni — uma plataforma que une universidades, alunos e o mercado de trabalho.",
-  default: "Sou o assistente da Conecta Uni! Posso te explicar como usar vagas, currículo, mentoria, simulador ou cadastro."
+  vagas: "A seção 'Vagas' conecta você a oportunidades de estágio e emprego.",
+  currículo: "Na aba 'Currículo', você gera automaticamente um PDF com suas informações.",
+  mentoria: "A 'Mentoria' conecta estudantes a professores e especialistas.",
+  simulador: "O 'Simulador' te ajuda a praticar entrevistas reais.",
+  conta: "Você pode criar uma conta clicando em 'Entrar / Cadastrar'.",
+  unicon: "A UNICON é a identidade visual do Conecta Uni — unindo universidades e o mercado de trabalho.",
+  default: "Sou o assistente da Conecta Uni! Posso te ajudar com vagas, currículo, mentoria, simulador ou cadastro."
 };
 
 function sendMessage() {
@@ -436,10 +406,7 @@ function sendMessage() {
 
   let resposta = respostasIA.default;
   for (let chave in respostasIA) {
-    if (msg.toLowerCase().includes(chave)) {
-      resposta = respostasIA[chave];
-      break;
-    }
+    if (msg.toLowerCase().includes(chave)) { resposta = respostasIA[chave]; break; }
   }
 
   setTimeout(() => {
@@ -466,21 +433,20 @@ function toggleAssistant() {
       </div>
     `;
     document.body.appendChild(popup);
-    const body = document.getElementById("assistant-body");
-    body.innerHTML += `<div class="bot-msg">Olá 👋 Sou o assistente da Conecta Uni. Posso te ajudar com vagas, currículo, mentoria ou simulador.</div>`;
+    document.getElementById("assistant-body").innerHTML += `<div class="bot-msg">Olá 👋 Sou o assistente da Conecta Uni. Posso te ajudar com vagas, currículo, mentoria ou simulador.</div>`;
   }
 
-  popup.style.display = (popup.style.display === "flex") ? "none" : "flex";
+  popup.style.display = popup.style.display === "flex" ? "none" : "flex";
 }
 
 const respostasFlutuante = {
-  vagas: "Na aba 'Vagas', você pode visualizar oportunidades de estágio e emprego e se candidatar diretamente.",
-  currículo: "Em 'Currículo', é possível preencher suas informações e gerar um PDF pronto para enviar às empresas.",
-  mentoria: "A seção 'Mentoria' conecta alunos com professores e profissionais experientes.",
-  simulador: "O simulador ajuda você a treinar respostas e melhorar sua confiança.",
-  conta: "Você pode criar uma conta clicando em 'Entrar / Cadastrar' no menu.",
-  unicon: "A UNICON é a identidade visual do Conecta Uni — conectando educação e mercado.",
-  default: "Posso te ajudar com vagas, currículo, mentoria, simulador ou cadastro. Qual dessas áreas quer saber mais?"
+  vagas: "Na aba 'Vagas', visualize oportunidades e se candidate diretamente.",
+  currículo: "Em 'Currículo', preencha seus dados e gere um PDF pronto.",
+  mentoria: "A seção 'Mentoria' conecta alunos com professores experientes.",
+  simulador: "O simulador ajuda você a treinar respostas e ganhar confiança.",
+  conta: "Crie uma conta em 'Entrar / Cadastrar'.",
+  unicon: "A UNICON é a identidade visual do Conecta Uni.",
+  default: "Posso te ajudar com vagas, currículo, mentoria, simulador ou cadastro."
 };
 
 function sendAssistantMsg() {
@@ -509,4 +475,117 @@ function sendAssistantMsg() {
     document.getElementById("ping-sound").play();
     body.scrollTop = body.scrollHeight;
   }, 1000);
+}
+
+function renderCompanyDashboard() {
+  const user = JSON.parse(localStorage.getItem("uniconUser"));
+  if (!user || user.role !== "empresa") {
+    alert("Apenas contas de empresa podem acessar esta área.");
+    navigate("login");
+    return;
+  }
+
+  const vagas = JSON.parse(localStorage.getItem(`vagas_${user.email}`) || "[]");
+
+  app.innerHTML = `
+    <section class="card">
+      <h1>Painel da Empresa</h1>
+      <p class="small">Gerencie suas vagas e visualize candidatos interessados.</p>
+      <button class="primary" onclick="showNewJobForm()">+ Publicar Nova Vaga</button>
+    </section>
+
+    <section class="card">
+      <h2>Minhas Vagas</h2>
+      <div id="company-vacancies"></div>
+    </section>
+  `;
+
+  const container = document.getElementById("company-vacancies");
+  if (vagas.length === 0) {
+    container.innerHTML = `<p class="small">Nenhuma vaga publicada ainda.</p>`;
+  } else {
+    vagas.forEach((v, i) => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <h3>${v.title}</h3>
+        <p><strong>Área:</strong> ${v.area}</p>
+        <p><strong>Tipo:</strong> ${v.tipo} • ${v.modalidade}</p>
+        <p>${v.desc}</p>
+        <p class="small"><em>Data limite: ${v.data}</em></p>
+        <button class="ghost" onclick="deleteJob(${i})">Excluir</button>
+      `;
+      container.appendChild(div);
+    });
+  }
+}
+
+function showNewJobForm() {
+  const user = JSON.parse(localStorage.getItem("uniconUser"));
+  if (!user || user.role !== "empresa") return navigate("login");
+
+  app.innerHTML = `
+    <section class="card">
+      <h1>Publicar Nova Vaga</h1>
+      <input id="job-title" placeholder="Título da vaga" />
+      <input id="job-area" placeholder="Área de atuação (ex: TI, Marketing...)" />
+      <select id="job-tipo">
+        <option>Estágio</option>
+        <option>Emprego</option>
+        <option>Projeto Acadêmico</option>
+      </select>
+      <select id="job-modalidade">
+        <option>Presencial</option>
+        <option>Remoto</option>
+        <option>Híbrido</option>
+      </select>
+      <textarea id="job-desc" placeholder="Descrição detalhada da vaga" rows="4"></textarea>
+      <input id="job-data" type="date" />
+
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <button class="primary" onclick="saveJob()">Salvar Vaga</button>
+        <button class="ghost" onclick="renderCompanyDashboard()">Cancelar</button>
+      </div>
+    </section>
+  `;
+}
+
+function saveJob() {
+  const user = JSON.parse(localStorage.getItem("uniconUser"));
+  if (!user || user.role !== "empresa") return navigate("login");
+
+  const job = {
+    title: document.getElementById("job-title").value.trim(),
+    area: document.getElementById("job-area").value.trim(),
+    tipo: document.getElementById("job-tipo").value,
+    modalidade: document.getElementById("job-modalidade").value,
+    desc: document.getElementById("job-desc").value.trim(),
+    data: document.getElementById("job-data").value,
+  };
+
+  if (!job.title || !job.area || !job.desc) {
+    alert("Preencha os campos obrigatórios: título, área e descrição.");
+    return;
+  }
+
+  const vagas = JSON.parse(localStorage.getItem(`vagas_${user.email}`) || "[]");
+  vagas.push(job);
+  localStorage.setItem(`vagas_${user.email}`, JSON.stringify(vagas));
+
+  alert("Vaga publicada com sucesso!");
+  renderCompanyDashboard();
+}
+
+function deleteJob(index) {
+  const user = JSON.parse(localStorage.getItem("uniconUser"));
+  const vagas = JSON.parse(localStorage.getItem(`vagas_${user.email}`) || "[]");
+  vagas.splice(index, 1);
+  localStorage.setItem(`vagas_${user.email}`, JSON.stringify(vagas));
+  renderCompanyDashboard();
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"'`=\/]/g, s => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;'
+  }[s]));
 }

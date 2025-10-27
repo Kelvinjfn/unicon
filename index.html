@@ -15,27 +15,32 @@
         <div class="subtitle">Emprego, pesquisa e mentoria</div>
       </div>
     </a>
-  <button id="menu-toggle" class="hamburger">☰</button>
-  <nav id="menu">
-  <button class="ghost" id="nav-home" onclick="navigate('home')">Início</button>
-  <button class="ghost" id="nav-vacancies" onclick="navigate('vacancies')">Vagas</button>
-  <button class="ghost" id="nav-mentors" onclick="navigate('mentors')">Mentoria</button>
-  <button class="ghost" id="nav-resume" onclick="navigate('resume')">Currículo</button>
-  <button class="ghost" id="nav-simulator" onclick="navigate('simulator')">Simulador</button>
-  <button class="ghost" id="nav-assistant" onclick="navigate('assistant')">Assistente IA 🤖</button>
-  <button class="primary" id="login-btn" onclick="navigate('login')">Entrar / Cadastrar</button>
-  <span id="user-info" class="hidden"></span>
-  <button class="ghost hidden" id="logout-btn" onclick="logout()">Sair</button>
- </nav>
+
+    <button id="menu-toggle" class="hamburger" aria-label="Abrir menu">☰</button>
+
+    <nav id="menu">
+      <button class="ghost" id="nav-home" onclick="navigate('home')">Início</button>
+      <button class="ghost" id="nav-vacancies" onclick="navigate('vacancies')">Vagas</button>
+      <button class="ghost" id="nav-mentors" onclick="navigate('mentors')">Mentoria</button>
+      <button class="ghost" id="nav-resume" onclick="navigate('resume')">Currículo</button>
+      <button class="ghost" id="nav-simulator" onclick="navigate('simulator')">Simulador</button>
+      <button class="ghost" id="nav-company" onclick="navigate('company')">Área da Empresa</button>
+      <button class="ghost" id="nav-assistant" onclick="navigate('assistant')">Assistente IA 🤖</button>
+
+      <button class="primary" id="login-btn" onclick="navigate('login')">Entrar / Cadastrar</button>
+      <span id="user-info" class="hidden"></span>
+      <button class="ghost hidden" id="logout-btn" onclick="logout()">Sair</button>
+    </nav>
   </header>
 
-  <main id="app"></main>
+  <main id="app">
+  </main>
 
   <footer>
     Projeto Conecta Uni — Protótipo acadêmico • Alinhado ao ODS 8
   </footer>
 
-  <div id="chat-bubble" onclick="toggleAssistant()">
+  <div id="chat-bubble" onclick="toggleAssistant()" aria-label="Abrir assistente de IA">
     🤖
   </div>
 
@@ -43,5 +48,13 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('show');
+    });
+  </script>
 </body>
 </html>
