@@ -3,7 +3,7 @@
   --blue-2: #0f79ff;
   --muted: #6b7280;
   --bg: #f7fbff;
-  --text: #0b1a2b;
+  --text: #217ef7; 
   --card-bg: #fff;
   --radius: 14px;
   font-family: "Inter", system-ui, sans-serif;
@@ -359,3 +359,31 @@ button.ghost:hover {
   background: rgba(11, 99, 214, 0.1);
   transform: translateY(-1px);
 }
+
+/* === BOTÕES DA TELA INICIAL (Explorar Vagas e Mentoria) === */
+.home-buttons button {
+  background: #fff;
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 32px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(11, 99, 214, 0.1);
+}
+
+.home-buttons button:hover {
+  background: var(--blue-2);
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(11, 99, 214, 0.25);
+}
+
+button.active-home {
+  background: var(--blue);
+  color: #fff;
+  border: 2px solid var(--blue);
+  box-shadow: 0 6px 12px rgba(11, 99, 214, 0.25);
+  transform: translateY(-2px);
+}
+

@@ -52,14 +52,14 @@ function renderHome() {
       <p class="small">A plataforma que conecta estudantes, professores, universidades e empresas.</p>
 
       <div class="home-buttons">
-        <button class="primary" onclick="navigate('vacancies')">Explorar Vagas</button>
-        <button class="secondary" onclick="navigate('mentors')">Mentoria</button>
+        <button class="primary" id="explorar-btn" onclick="activateHomeButton('explorar-btn'); navigate('vacancies')">Explorar Vagas</button>
+        <button class="secondary" id="mentoria-btn" onclick="activateHomeButton('mentoria-btn'); navigate('mentors')">Mentoria</button>
       </div>
     </section>
 
     <section class="features" style="margin-top:30px;">
       <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/512/2983/2983788.png" alt="Oportunidades" />
+        <img src="https://cdn-icons-png.flaticon.com/512/1040/1040230.png" alt="Oportunidades" />
         <h3>Oportunidades</h3>
         <p>Conecte-se com empresas e programas de estágio alinhados ao seu curso.</p>
       </div>
@@ -80,6 +80,13 @@ function renderHome() {
     <blockquote class="quote">"Educação e trabalho caminham juntos para transformar o futuro."</blockquote>
   `;
 }
+function activateHomeButton(id) {
+  document.querySelectorAll('.home-buttons button').forEach(btn => {
+    btn.classList.remove('active-home');
+  });
+  document.getElementById(id).classList.add('active-home');
+}
+
 
 function renderVacancies() {
   const vacancies = [
