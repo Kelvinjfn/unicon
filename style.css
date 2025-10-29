@@ -360,7 +360,6 @@ button.ghost:hover {
   transform: translateY(-1px);
 }
 
-/* === BOTÕES DA TELA INICIAL (Explorar Vagas e Mentoria) === */
 .home-buttons button {
   background: #fff;
   color: var(--blue);
