@@ -596,3 +596,19 @@ function escapeHtml(str) {
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;'
   }[s]));
 }
+function toggleTheme() {
+  const isDark = document.body.classList.toggle("dark");
+  localStorage.setItem("isDarkMode", isDark);
+  document.getElementById("theme-toggle").textContent = isDark ? "☀️" : "🌙";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isDark = localStorage.getItem("isDarkMode") === "true";
+  if (isDark) {
+    document.body.classList.add("dark");
+  }
+  const themeToggleBtn = document.getElementById("theme-toggle");
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = isDark ? "☀️" : "🌙";
+  }
+});
