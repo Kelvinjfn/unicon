@@ -387,17 +387,26 @@ button.active-home {
 }
 
 #theme-toggle {
-  border: 2px solid var(--blue);
-  padding: 8px 12px;
+  position: fixed;
+  bottom: 90px;
+  right: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
-  font-size: 16px;
-  color: var(--blue);
-  background: transparent;
+  background: var(--blue);
+  color: white;
+  border: 2px solid white;
+  font-size: 22px;
   cursor: pointer;
-  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s;
+  z-index: 1000;
 }
 
 #theme-toggle:hover {
-  background: var(--blue);
-  color: #fff;
+  background-color: #fff;
+  color: var(--blue);
+  border-color: var(--blue);
 }
